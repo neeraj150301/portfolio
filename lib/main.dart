@@ -1,6 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'sections/home_section.dart';
 import 'sections/about_section.dart';
 import 'sections/projects_section.dart';
@@ -87,6 +89,7 @@ class _PortfolioHomePageState extends State<PortfolioHomePage> {
     _positionsListener.itemPositions.removeListener(_positionsListenerCallback);
     super.dispose();
   }
+
   bool isMobile(BuildContext context) =>
       MediaQuery.of(context).size.width < 800;
   @override
@@ -101,6 +104,7 @@ class _PortfolioHomePageState extends State<PortfolioHomePage> {
       ),
     );
     return Scaffold(
+      floatingActionButton: _animatedResumeButton(),
       extendBodyBehindAppBar: true,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(70),
@@ -120,6 +124,59 @@ class _PortfolioHomePageState extends State<PortfolioHomePage> {
         ][index],
       ),
     );
+  }
+
+  Widget _animatedResumeButton() {
+    return GestureDetector(
+      onTap: _downloadResume,
+      child: TweenAnimationBuilder<double>(
+        tween: Tween<double>(begin: 0.9, end: 1.1),
+        duration: const Duration(seconds: 1),
+        curve: Curves.easeInOut,
+        builder: (context, value, _) {
+          return Transform.translate(
+            offset: Offset(0, -4 * value), // create little jumping effect
+            child: Transform.scale(
+              scale: value,
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.blueAccent.withOpacity(0.6),
+                      blurRadius: 20,
+                      spreadRadius: 4,
+                    ),
+                  ],
+                ),
+                // child: CircleAvatar(
+                //   radius: 34,
+                //   backgroundColor: Colors.blueAccent,
+                child: Lottie.asset(
+                  'assets/animations/mail.json',
+                  repeat: true,
+                  animate: true,
+                  height: 80,
+                  // ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  /// ✅ Resume download handler
+  void _downloadResume() async {
+    final url = Uri.parse(
+      "https://raw.githubusercontent.com/neeraj150301/portfolio/main/assets/resume/Neeraj_Sharma_Resume_pdf.pdf",
+    );
+
+    if (await canLaunchUrl(url)) {
+      launchUrl(url, mode: LaunchMode.externalApplication);
+    }
   }
 
   Widget _buildDrawer(BuildContext context) {
