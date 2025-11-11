@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -18,6 +19,29 @@ class HomeSection extends StatelessWidget {
         children: [
           Positioned.fill(
             child:
+                // CachedNetworkImage(
+                //   width: double.infinity,
+                //   height: double.infinity,
+                //   imageUrl:
+                //       "https://volpis.com/wp-content/uploads/2024/08/Flutter-vs-Native-app-dev.png",
+                //   progressIndicatorBuilder: (context, url, downloadProgress) =>
+                //       CircularProgressIndicator(
+                //         value: downloadProgress.progress,
+                //       ),
+                //   errorWidget: (context, url, error) => Icon(Icons.error),
+                // ).animate().blur(
+                //   begin: Offset(10, 10),
+                //   end: Offset(0, 0),
+                //   duration: 1200.ms,
+                // ),
+                // Image.asset(
+                //   "assets/background.jpg",
+                //   fit: BoxFit.cover,
+                // ).animate().blur(
+                //   begin: Offset(10, 10),
+                //   end: Offset(0, 0),
+                //   duration: 1200.ms,
+                // ),
                 Image.network(
                   "https://volpis.com/wp-content/uploads/2024/08/Flutter-vs-Native-app-dev.png",
                   fit: BoxFit.cover,

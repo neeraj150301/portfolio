@@ -69,6 +69,35 @@ class _ProjectsSectionState extends State<ProjectsSection> {
         'desc2':
             'Developed a Flutter-based mobile application that displays real-time stock quotes using APIs like Alpha Vantage. Implemented features such as search, watchlist, along with state management (Provider) for efficient data handling. Focused on clean architecture, error handling, and responsive UI with performance optimization and testing.',
       },
+      {
+        'title': 'AI Chatbot',
+        'github':
+            'https://github.com/neeraj150301/flutter_ai_chatbot/tree/main/flutter_ai/my_app',
+        'images': [
+          'assets/ai_chatbot/Screenshot_20251111_124436.jpg',
+          'assets/ai_chatbot/Screenshot_20251111_124447.jpg',
+          'assets/ai_chatbot/Screenshot_20251111_124522.jpg',
+          'assets/ai_chatbot/Screenshot_20251111_124536.jpg',
+        ],
+        'desc':
+            'AI chatbot powered by Google Gemini — text & image understanding',
+        'desc2':
+            'An intelligent AI chatbot built using Flutter and Google Gemini API. The app allows users to chat with AI, ask questions, and even upload images to get context-based answers. Features include: AI conversation, image recognition, chat history, material UI design, error handling.',
+      },
+      {
+        'title': 'Pooja App',
+        'github': 'https://github.com/neeraj150301/puja',
+        'images': [
+          'assets/pooja/Screenshot_20251111_130355.jpg',
+          'assets/pooja/Screenshot_20251111_130402.jpg',
+          'assets/pooja/Screenshot_20251111_130419.jpg',
+          'assets/pooja/Screenshot_20251111_130430.jpg',
+          'assets/pooja/Screenshot_20251111_130440.jpg',
+        ],
+        'desc': 'Search Hindu Poojas with steps, mantras & bilingual audio',
+        'desc2':
+            'A devotional Pooja guide app built using Flutter, where users can search any Pooja and get detailed steps, required samagri list, and mantras. The app supports dual languages (Hindi & English) with voice narration. Users can switch language anytime from the home screen, and the mantras + audio adapt automatically.',
+      },
     ];
 
     return Padding(
@@ -185,7 +214,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                 p['desc2'],
                 style: const TextStyle(fontSize: 16, color: Colors.white70),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 32),
 
               ElevatedButton.icon(
                 onPressed: () async {

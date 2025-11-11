@@ -39,6 +39,7 @@ dependencies:
   scrollable_positioned_list: ^0.3.8
   percent_indicator: ^4.2.2
   carousel_slider: ^5.1.1
+  cached_network_image: ^3.4.1
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -73,6 +74,9 @@ flutter:
     - assets/geoLocation/
     - assets/chatty/
     - assets/stock/
+    - assets/ai_chatbot/
+    - assets/pooja/
+    - assets/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

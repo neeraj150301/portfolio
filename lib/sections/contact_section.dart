@@ -61,14 +61,18 @@ class ContactSection extends StatelessWidget {
                     ],
                   ),
 
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 10),
 
                   // ✅ Buttons
-                  Wrap(
-                    spacing: 16,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    spacing: 6,
                     children: [
-                      _filledButton("LinkedIn", _openLinkedIn),
-                      _outlineButton("GitHub", _openGithub),
+                      _iconButton1(
+                        "assets/linkedin-removebg-preview.png",
+                        _openLinkedIn,
+                      ),
+                      _iconButton1("assets/git-white.png", _openGithub),
                     ],
                   ),
                 ],
@@ -81,32 +85,23 @@ class ContactSection extends StatelessWidget {
   }
 
   // 🔘 Filled CTA button
-  static Widget _filledButton(String text, VoidCallback onTap) =>
-      ElevatedButton(
+  static Widget _iconButton1(String asset, VoidCallback onTap) => SizedBox(
+    height: 35,
+    width: 40,
+    child: Padding(
+      padding: const EdgeInsets.only(top: 4.0),
+      child: IconButton(
         onPressed: onTap,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.blueAccent,
-          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(26),
-          ),
-        ),
-        child: Text(text, style: const TextStyle(color: Colors.white),
-      ));
+        icon: Image.asset(asset),
+        style: IconButton.styleFrom(
+          backgroundColor: Colors.transparent,
+          padding: const EdgeInsets.all(2),
 
-  // 🔘 Outline CTA button
-  static Widget _outlineButton(String text, VoidCallback onTap) =>
-      OutlinedButton(
-        onPressed: onTap,
-        style: OutlinedButton.styleFrom(
-          side: BorderSide(color: Colors.blueAccent.withOpacity(0.7)),
-          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(26),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
         ),
-        child: Text(text),
-      );
+      ),
+    ),
+  );
 
   static void _openLinkedIn() async {
     final url = Uri.parse("https://linkedin.com/in/neeraj-sharma-66a686259");
@@ -132,7 +127,7 @@ class _ContactItem extends StatelessWidget {
       children: [
         Icon(icon, color: Colors.blueAccent, size: 20),
         const SizedBox(width: 5),
-        Text(text, style: const TextStyle(fontSize: 14,)),
+        Text(text, style: const TextStyle(fontSize: 14)),
       ],
     );
   }

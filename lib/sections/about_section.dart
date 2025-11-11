@@ -39,23 +39,16 @@ class AboutSection extends StatelessWidget {
                       .slideY(begin: .2, end: 0),
                 ],
               ),
-              desktop: Row(
+              desktop: Column(
                 children: [
-                  Expanded(
-                    flex: 3,
-                    child: _aboutText(context)
-                        .animate()
-                        .fade(duration: 600.ms)
-                        .slideX(begin: -.2, end: 0),
-                  ),
-                  const SizedBox(width: 32),
-                  Expanded(
-                    flex: 2,
-                    child: _skillsGrid()
-                        .animate()
-                        .fade(duration: 600.ms)
-                        .slideX(begin: .2, end: 0),
-                  ),
+                  _aboutText(
+                    context,
+                  ).animate().fade(duration: 600.ms).slideX(begin: -.2, end: 0),
+                  const SizedBox(width: 62),
+                  _skillsGrid()
+                      .animate()
+                      .fade(duration: 600.ms)
+                      .slideX(begin: .2, end: 0),
                 ],
               ),
             ),
@@ -66,26 +59,32 @@ class AboutSection extends StatelessWidget {
   }
 
   Widget _aboutText(BuildContext context) => Text(
-    "I am Neeraj Sharma — a Software Developer focused on building cross-platform apps using Flutter. I build clean-architecture apps, integrate backends with REST & WebSocket, and care strongly about performance and user experience.\n\nCurrently working at Five Exceptions Software Solutions where I developed multi-chain wallet features, NFC integrations and strong app-level security. Previously worked on store management apps, dashboards, and Angular/NestJS web apps.",
-    style: Theme.of(
-      context,
-    ).textTheme.bodyLarge?.copyWith(height: 1.6, fontSize: 22),
+    "I am Neeraj Sharma — a Software Developer with 2+ years of experience building scalable mobile and web applications using Flutter.\n\n"
+    "I specialize in clean architecture, performance-focused UI, and seamless backend integration using REST APIs, WebSockets, and Firebase. My work involves creating production-grade apps that are fast, reliable, and visually engaging.\n\n"
+    "Currently, I work at Five Exceptions Software Solutions, where I developed a blockchain-based multi-chain wallet with NFC integration, app-level security, and encrypted transactions. Previously, at RR ISPAT (GPIL), I built store and inventory management systems, dashboards, and Angular/NestJS-based web applications.\n\n"
+    "I love solving real-world problems through technology and building products that deliver smooth user experience and business value.\n\n",
+    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+      height: 1.6,
+      fontSize: 22,
+      color: Colors.white70,
+    ),
   );
 
   Widget _skillsGrid() => Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 40.0),
+    padding: const EdgeInsets.symmetric(horizontal: 20.0),
     child: Wrap(
       spacing: 30,
       runSpacing: 30,
       children: const [
         _SkillChip("Flutter"),
+        _SkillChip("Git"),
         _SkillChip("Dart"),
         _SkillChip("Firebase"),
         _SkillChip("REST APIs"),
         _SkillChip("WebSocket"),
         _SkillChip("MongoDB"),
         _SkillChip("Riverpod"),
-        _SkillChip("Git"),
+        _SkillChip("Bloc"),
         _SkillChip("Clean Architecture"),
       ],
     ),
