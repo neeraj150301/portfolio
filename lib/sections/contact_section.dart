@@ -6,6 +6,9 @@ import 'package:flutter_animate/flutter_animate.dart';
 class ContactSection extends StatelessWidget {
   const ContactSection({super.key});
 
+  bool isMobile(BuildContext context) =>
+      MediaQuery.of(context).size.width < 800;
+
   @override
   Widget build(BuildContext context) {
     return Padding(

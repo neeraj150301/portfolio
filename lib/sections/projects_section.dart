@@ -1,7 +1,6 @@
 import 'dart:ui';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../widgets/responsive.dart';
 
@@ -99,7 +98,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
             'A devotional Pooja guide app built using Flutter, where users can search any Pooja and get detailed steps, required samagri list, and mantras. The app supports dual languages (Hindi & English) with voice narration. Users can switch language anytime from the home screen, and the mantras + audio adapt automatically.',
       },
     ];
-
+    final isDesktop = MediaQuery.of(context).size.width > 800;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
       child: Column(
@@ -109,7 +108,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
             "Projects",
             style: Theme.of(context).textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.bold,
-              fontSize: 56,
+              fontSize: isDesktop ? 56 : 40,
             ),
           ),
           const SizedBox(height: 45),

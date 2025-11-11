@@ -6,6 +6,9 @@ import '../widgets/responsive.dart';
 class AboutSection extends StatelessWidget {
   const AboutSection({super.key});
 
+  bool isMobile(BuildContext context) =>
+      MediaQuery.of(context).size.width < 800;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -33,10 +36,9 @@ class AboutSection extends StatelessWidget {
                     context,
                   ).animate().fade(duration: 600.ms).slideY(begin: .2, end: 0),
                   const SizedBox(height: 32),
-                  _skillsGrid()
-                      .animate()
-                      .fade(duration: 600.ms)
-                      .slideY(begin: .2, end: 0),
+                  _skillsGrid(
+                    context,
+                  ).animate().fade(duration: 600.ms).slideY(begin: .2, end: 0),
                 ],
               ),
               desktop: Column(
@@ -44,11 +46,10 @@ class AboutSection extends StatelessWidget {
                   _aboutText(
                     context,
                   ).animate().fade(duration: 600.ms).slideX(begin: -.2, end: 0),
-                  const SizedBox(width: 62),
-                  _skillsGrid()
-                      .animate()
-                      .fade(duration: 600.ms)
-                      .slideX(begin: .2, end: 0),
+                  SizedBox(width: isMobile(context) ? 32 : 62),
+                  _skillsGrid(
+                    context,
+                  ).animate().fade(duration: 600.ms).slideX(begin: .2, end: 0),
                 ],
               ),
             ),
@@ -65,16 +66,16 @@ class AboutSection extends StatelessWidget {
     "I love solving real-world problems through technology and building products that deliver smooth user experience and business value.\n\n",
     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
       height: 1.6,
-      fontSize: 22,
+      fontSize: isMobile(context) ? 12 : 22,
       color: Colors.white70,
     ),
   );
 
-  Widget _skillsGrid() => Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+  Widget _skillsGrid(BuildContext context) => Padding(
+    padding: EdgeInsets.symmetric(horizontal: isMobile(context) ? 10 : 20.0),
     child: Wrap(
-      spacing: 30,
-      runSpacing: 30,
+      spacing: isMobile(context) ? 10 : 30,
+      runSpacing: isMobile(context) ? 10 : 30,
       children: const [
         _SkillChip("Flutter"),
         _SkillChip("Git"),
@@ -95,6 +96,9 @@ class _SkillChip extends StatelessWidget {
   final String label;
   const _SkillChip(this.label);
 
+  bool isMobile(BuildContext context) =>
+      MediaQuery.of(context).size.width < 800;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -111,7 +115,10 @@ class _SkillChip extends StatelessWidget {
       ),
       child: Text(
         label,
-        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+        style: TextStyle(
+          fontSize: isMobile(context) ? 12 : 16,
+          fontWeight: FontWeight.w500,
+        ),
       ),
     );
   }

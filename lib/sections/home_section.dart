@@ -96,7 +96,10 @@ class HomeSection extends StatelessWidget {
                       const SizedBox(height: 10),
                       Text(
                         "I build secure, scalable and high-performance applications using Flutter.\nTurning ideas into production-ready apps with clean architecture, realtime features, and stunning UI/UX.",
-                        style: TextStyle(fontSize: 16, color: Colors.white70),
+                        style: TextStyle(
+                          fontSize: isMobile(context) ? 14 : 16,
+                          color: Colors.white70,
+                        ),
                         textAlign: TextAlign.center,
                       ).animate().fade(duration: 600.ms),
 
