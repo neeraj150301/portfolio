@@ -171,7 +171,7 @@ class _PortfolioHomePageState extends State<PortfolioHomePage> {
   /// ✅ Resume download handler
   void _downloadResume() async {
     final url = Uri.parse(
-      "https://raw.githubusercontent.com/neeraj150301/portfolio/main/assets/resume/Neeraj_Sharma_Resume_pdf.pdf",
+      "https://raw.githubusercontent.com/neeraj150301/portfolio/main/assets/resume/Neeraj_Sharma_Resume.pdf",
     );
 
     if (await canLaunchUrl(url)) {
