@@ -83,12 +83,18 @@ class HomeSection extends StatelessWidget {
                           alignment: WrapAlignment.center,
                           spacing: 12,
                           children: [
-                            _glowButton("View Projects", () => onNavClick(2)),
+                            _glowButton(
+                              "View Projects",
+                              () => onNavClick(2),
+                              context,
+                            ),
+
                             _glowButton(
                               "Contact",
                               () => launchUrl(
                                 Uri.parse("mailto:neerajs150301@gmail.com"),
                               ),
+                              context,
                             ),
                           ],
                         ),
@@ -104,7 +110,7 @@ class HomeSection extends StatelessWidget {
     );
   }
 
-  Widget _glowButton(String text, VoidCallback action) {
+  Widget _glowButton(String text, VoidCallback action, BuildContext context) {
     // return GestureDetector(
     //   onTap: action,
 
@@ -132,7 +138,9 @@ class HomeSection extends StatelessWidget {
       child: GestureDetector(
         onTap: action,
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+          padding: isMobile(context)
+              ? EdgeInsets.symmetric(horizontal: 20, vertical: 10)
+              : EdgeInsets.symmetric(horizontal: 30, vertical: 15),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
             border: Border.all(color: AppColors.accentBlue),
@@ -147,10 +155,10 @@ class HomeSection extends StatelessWidget {
           ),
           child: Text(
             text,
-            style: const TextStyle(
+            style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,
-              fontSize: 16,
+              fontSize: isMobile(context) ? 10 : 16,
             ),
           ),
         ),

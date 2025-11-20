@@ -219,7 +219,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
             ],
           ),
         ),
-        const SizedBox(height: 55),
+        SizedBox(height: isMobile(context) ? 20 : 55),
 
         _skillsGrid2(
           context,
@@ -546,9 +546,9 @@ class _SkillChip2 extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(0),
         child: CircleAvatar(
-          radius: 45,
+          radius: isMobile(context) ? 15 : 45,
           backgroundColor: color.withOpacity(0.15),
-          child: Icon(icon, size: 30, color: color),
+          child: Icon(icon, size: isMobile(context) ? 15 : 30, color: color),
         ),
       ),
     );

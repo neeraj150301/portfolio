@@ -38,7 +38,7 @@ class AboutSection extends StatelessWidget {
                   _aboutText(
                     context,
                   ).animate().fade(duration: 600.ms).slideY(begin: .2, end: 0),
-                  const SizedBox(height: 32),
+                  const SizedBox(height: 16),
                   _skillsGrid(
                     context,
                   ).animate().fade(duration: 600.ms).slideY(begin: .2, end: 0),
@@ -49,7 +49,7 @@ class AboutSection extends StatelessWidget {
                   _aboutText(
                     context,
                   ).animate().fade(duration: 600.ms).slideX(begin: -.2, end: 0),
-                  SizedBox(width: isMobile(context) ? 32 : 62),
+                  SizedBox(width: isMobile(context) ? 16 : 62),
                   _skillsGrid(
                     context,
                   ).animate().fade(duration: 600.ms).slideX(begin: .2, end: 0),
@@ -69,13 +69,13 @@ class AboutSection extends StatelessWidget {
     "I love solving real-world problems through technology and building products that deliver smooth user experience and business value.\n\n",
     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
       height: 1.6,
-      fontSize: isMobile(context) ? 12 : 22,
+      fontSize: isMobile(context) ? 14 : 22,
       color: Colors.white70,
     ),
   );
 
   Widget _skillsGrid(BuildContext context) => Padding(
-    padding: EdgeInsets.symmetric(horizontal: isMobile(context) ? 10 : 20.0),
+    padding: EdgeInsets.symmetric(horizontal: isMobile(context) ? 0 : 20.0),
     child: Wrap(
       spacing: isMobile(context) ? 10 : 30,
       runSpacing: isMobile(context) ? 10 : 30,
@@ -114,7 +114,9 @@ class _SkillChip extends StatelessWidget {
         scale: 1.1,
         lift: 4,
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 18),
+          padding: isMobile(context)
+              ? EdgeInsets.symmetric(vertical: 5, horizontal: 5)
+              : EdgeInsets.symmetric(vertical: 10, horizontal: 18),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
             border: Border.all(color: Colors.blueAccent.withOpacity(0.4)),
