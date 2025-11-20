@@ -1,7 +1,10 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../widgets/responsive.dart';
+import '../widgets/hover_effect.dart';
+import '../widgets/floating_widget.dart';
 
 class AboutSection extends StatelessWidget {
   const AboutSection({super.key});
@@ -77,16 +80,16 @@ class AboutSection extends StatelessWidget {
       spacing: isMobile(context) ? 10 : 30,
       runSpacing: isMobile(context) ? 10 : 30,
       children: const [
-        _SkillChip("Flutter"),
-        _SkillChip("Git"),
-        _SkillChip("Dart"),
-        _SkillChip("Firebase"),
-        _SkillChip("REST APIs"),
-        _SkillChip("WebSocket"),
-        _SkillChip("MongoDB"),
-        _SkillChip("Riverpod"),
-        _SkillChip("Bloc"),
-        _SkillChip("Clean Architecture"),
+        _SkillChip("Flutter", FontAwesomeIcons.flutter, Colors.blue),
+        _SkillChip("Git", FontAwesomeIcons.gitAlt, Colors.redAccent),
+        _SkillChip("Dart", FontAwesomeIcons.dartLang, Colors.blueAccent),
+        _SkillChip("Firebase", FontAwesomeIcons.fire, Colors.orange),
+        _SkillChip("REST APIs", FontAwesomeIcons.server, Colors.green),
+        _SkillChip("WebSocket", FontAwesomeIcons.connectdevelop, Colors.purple),
+        _SkillChip("MongoDB", FontAwesomeIcons.database, Colors.greenAccent),
+        _SkillChip("Riverpod", FontAwesomeIcons.layerGroup, Colors.blueGrey),
+        _SkillChip("Bloc", FontAwesomeIcons.cubes, Colors.indigo),
+        _SkillChip("Clean Architecture", FontAwesomeIcons.sitemap, Colors.teal),
       ],
     ),
   );
@@ -94,30 +97,54 @@ class AboutSection extends StatelessWidget {
 
 class _SkillChip extends StatelessWidget {
   final String label;
-  const _SkillChip(this.label);
+  final IconData icon;
+  final Color color;
+
+  const _SkillChip(this.label, this.icon, this.color);
 
   bool isMobile(BuildContext context) =>
       MediaQuery.of(context).size.width < 800;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: Colors.blueAccent.withOpacity(0.4)),
-        gradient: LinearGradient(
-          colors: [
-            Colors.blueAccent.withOpacity(0.28),
-            Colors.blueAccent.withOpacity(0.10),
-          ],
-        ),
-      ),
-      child: Text(
-        label,
-        style: TextStyle(
-          fontSize: isMobile(context) ? 12 : 16,
-          fontWeight: FontWeight.w500,
+    return FloatingWidget(
+      distance: 5,
+      // duration: Duration(milliseconds: 2000 + label.length * 100), // Staggered
+      child: HoverEffect(
+        scale: 1.1,
+        lift: 4,
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 18),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30),
+            border: Border.all(color: Colors.blueAccent.withOpacity(0.4)),
+            gradient: LinearGradient(
+              colors: [
+                Colors.blueAccent.withOpacity(0.2),
+                Colors.blueAccent.withOpacity(0.10),
+              ],
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: color.withOpacity(0.1),
+                blurRadius: 10,
+                spreadRadius: 1,
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                label,
+                style: TextStyle(
+                  fontSize: isMobile(context) ? 12 : 15,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white.withOpacity(0.9),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

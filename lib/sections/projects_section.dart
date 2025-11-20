@@ -1,8 +1,12 @@
 import 'dart:ui';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:portfolio/widgets/floating_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../widgets/responsive.dart';
+import '../widgets/hover_effect.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class ProjectsSection extends StatefulWidget {
   const ProjectsSection({super.key});
@@ -12,6 +16,82 @@ class ProjectsSection extends StatefulWidget {
 }
 
 class _ProjectsSectionState extends State<ProjectsSection> {
+  bool isMobile(BuildContext context) =>
+      MediaQuery.of(context).size.width < 800;
+
+  Widget _skillsGrid2(BuildContext context) {
+    final skills = [
+      {
+        'name': "Flutter",
+        'icon': FontAwesomeIcons.flutter,
+        'color': Colors.blue,
+      },
+      {
+        'name': "Git",
+        'icon': FontAwesomeIcons.gitAlt,
+        'color': Colors.redAccent,
+      },
+      {
+        'name': "Dart",
+        'icon': FontAwesomeIcons.dartLang,
+        'color': Colors.blueAccent,
+      },
+      {
+        'name': "Firebase",
+        'icon': FontAwesomeIcons.fire,
+        'color': Colors.orange,
+      },
+      {
+        'name': "REST APIs",
+        'icon': FontAwesomeIcons.server,
+        'color': Colors.green,
+      },
+      {
+        'name': "WebSocket",
+        'icon': FontAwesomeIcons.html5,
+        'color': Colors.purple,
+      },
+      {
+        'name': "Riverpod",
+        'icon': FontAwesomeIcons.css,
+        'color': Colors.blueGrey,
+      },
+      {'name': "Bloc", 'icon': FontAwesomeIcons.cubes, 'color': Colors.indigo},
+
+      {'name': "Node", 'icon': FontAwesomeIcons.node, 'color': Colors.green},
+      {
+        'name': "Angular",
+        'icon': FontAwesomeIcons.angular,
+        'color': Colors.red,
+      },
+      {
+        'name': "Android",
+        'icon': FontAwesomeIcons.android,
+        'color': Colors.green,
+      },
+      {'name': "Android", 'icon': FontAwesomeIcons.c, 'color': Colors.green},
+      {'name': "Android", 'icon': FontAwesomeIcons.leaf, 'color': Colors.green},
+      {'name': "Android", 'icon': FontAwesomeIcons.java, 'color': Colors.green},
+      {'name': "Android", 'icon': FontAwesomeIcons.js, 'color': Colors.green},
+    ];
+
+    return Wrap(
+      spacing: isMobile(context) ? 10 : 20,
+      runSpacing: isMobile(context) ? 10 : 20,
+      alignment: WrapAlignment.center,
+      children: skills.asMap().entries.map((e) {
+        final index = e.key;
+        final skill = e.value;
+        return _SkillChip2(
+          skill['name'] as String,
+          skill['icon'] as IconData,
+          skill['color'] as Color,
+          index,
+        );
+      }).toList(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final projects = [
@@ -99,42 +179,53 @@ class _ProjectsSectionState extends State<ProjectsSection> {
       },
     ];
     final isDesktop = MediaQuery.of(context).size.width > 800;
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
-      child: Column(
-        // crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Projects",
-            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-              fontWeight: FontWeight.bold,
-              fontSize: isDesktop ? 56 : 40,
-            ),
-          ),
-          const SizedBox(height: 45),
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
+          child: Column(
+            children: [
+              Text(
+                "Projects",
+                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  fontSize: isDesktop ? 56 : 40,
+                ),
+              ),
+              const SizedBox(height: 45),
 
-          /// ✅ Responsive layout
-          Responsive(
-            mobile: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: projects
-                  .map(
-                    (p) => Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                      child: _glassCard(context, p),
-                    ),
-                  )
-                  .toList(),
-            ),
-            desktop: Wrap(
-              spacing: 24,
-              runSpacing: 24,
-              children: projects.map((p) => _glassCard(context, p)).toList(),
-            ),
+              /// ✅ Responsive layout
+              Responsive(
+                mobile: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: projects
+                      .map(
+                        (p) => Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          child: _glassCard(context, p),
+                        ),
+                      )
+                      .toList(),
+                ),
+                desktop: Wrap(
+                  spacing: 54,
+                  runSpacing: 54,
+                  children: projects
+                      .map((p) => _glassCard(context, p))
+                      .toList(),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+        const SizedBox(height: 55),
+
+        _skillsGrid2(
+          context,
+        ).animate().fade(duration: 600.ms).slideY(begin: .2, end: 0),
+        const SizedBox(height: 25),
+      ],
     );
   }
 
@@ -143,28 +234,30 @@ class _ProjectsSectionState extends State<ProjectsSection> {
 
     return MouseRegion(
       cursor: SystemMouseCursors.click,
-      child: InkWell(
-        onTap: () {
-          if (!isDesktop) _openProjectModal(context, p); // ✅ Only mobile
-        },
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 350),
-          width: isDesktop ? 700 : double.infinity,
-          height: isDesktop ? 450 : null,
-          padding: const EdgeInsets.all(24),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(24),
-            border: Border.all(color: Colors.white.withOpacity(0.25)),
-            gradient: LinearGradient(
-              colors: [
-                Colors.white.withOpacity(0.12),
-                Colors.white.withOpacity(0.05),
-              ],
+      child: HoverEffect(
+        child: InkWell(
+          onTap: () {
+            if (!isDesktop) _openProjectModal(context, p); // ✅ Only mobile
+          },
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 350),
+            width: isDesktop ? 700 : double.infinity,
+            height: isDesktop ? 450 : null,
+            padding: const EdgeInsets.all(24),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(24),
+              border: Border.all(color: Colors.white.withOpacity(0.25)),
+              gradient: LinearGradient(
+                colors: [
+                  Colors.white.withOpacity(0.12),
+                  Colors.white.withOpacity(0.05),
+                ],
+              ),
             ),
+            child: isDesktop
+                ? _desktopExpandedCard(context, p) // ✅ NEW UI on Desktop
+                : _mobileCard(p),
           ),
-          child: isDesktop
-              ? _desktopExpandedCard(context, p) // ✅ NEW UI on Desktop
-              : _mobileCard(p),
         ),
       ),
     );
@@ -179,7 +272,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
           child: CarouselSlider(
             items: (p['images'] as List<String>).map((img) {
               return ClipRRect(
-                borderRadius: BorderRadius.circular(18),
+                borderRadius: BorderRadius.circular(4),
                 child: Image.asset(img, fit: BoxFit.contain),
               );
             }).toList(),
@@ -424,6 +517,40 @@ class _ProjectsSectionState extends State<ProjectsSection> {
           ),
         );
       },
+    );
+  }
+}
+
+class _SkillChip2 extends StatelessWidget {
+  final String label;
+  final IconData icon;
+  final Color color;
+  final int index;
+
+  const _SkillChip2(this.label, this.icon, this.color, this.index);
+
+  bool isMobile(BuildContext context) =>
+      MediaQuery.of(context).size.width < 800;
+
+  @override
+  Widget build(BuildContext context) {
+    // Calculate phase for wave effect (0.0 to 1.0)
+    // Using a sine wave pattern for the initial offset
+    // On mobile, start from same position (phase 0)
+    final double phase = isMobile(context) ? 0.0 : (index * 0.2) % 1.0;
+
+    return FloatingWidget(
+      distance: 20,
+      duration: const Duration(milliseconds: 2500),
+      initialOffset: phase, // Start at different points in the cycle
+      child: Padding(
+        padding: const EdgeInsets.all(0),
+        child: CircleAvatar(
+          radius: 45,
+          backgroundColor: color.withOpacity(0.15),
+          child: Icon(icon, size: 30, color: color),
+        ),
+      ),
     );
   }
 }

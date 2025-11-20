@@ -9,6 +9,7 @@ import 'sections/projects_section.dart';
 import 'sections/contact_section.dart';
 import 'widgets/top_navigation.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'widgets/particle_background.dart';
 
 void main() => runApp(const PortfolioApp());
 
@@ -112,16 +113,34 @@ class _PortfolioHomePageState extends State<PortfolioHomePage> {
       ),
       drawer: isMobile(context) ? _buildDrawer(context) : null,
 
-      body: ScrollablePositionedList.builder(
-        itemScrollController: _scrollController,
-        itemPositionsListener: _positionsListener,
-        itemCount: 4,
-        itemBuilder: (_, index) => [
-          HomeSection(onNavClick: scrollToSection),
-          const AboutSection(),
-          const ProjectsSection(),
-          const ContactSection(),
-        ][index],
+      body: Stack(
+        children: [
+          const Positioned.fill(child: ParticleBackground()),
+          ScrollablePositionedList.builder(
+            itemScrollController: _scrollController,
+            itemPositionsListener: _positionsListener,
+            itemCount: 5, // Increased for footer
+            itemBuilder: (_, index) {
+              if (index == 4) {
+                return const Padding(
+                  padding: EdgeInsets.all(20.0),
+                  child: Center(
+                    child: Text(
+                      "© 2025 Neeraj Sharma. Built with Flutter 💙",
+                      style: TextStyle(color: Colors.white24, fontSize: 12),
+                    ),
+                  ),
+                );
+              }
+              return [
+                HomeSection(onNavClick: scrollToSection),
+                const AboutSection(),
+                const ProjectsSection(),
+                const ContactSection(),
+              ][index];
+            },
+          ),
+        ],
       ),
     );
   }
