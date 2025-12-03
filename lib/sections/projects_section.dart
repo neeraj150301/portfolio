@@ -96,6 +96,35 @@ class _ProjectsSectionState extends State<ProjectsSection> {
   Widget build(BuildContext context) {
     final projects = [
       {
+        'title': 'Crypto Wallet',
+        'desc':
+            'A multi-chain, multi-wallet crypto exchange platform with secure asset management and fast on-chain transactions.',
+        'images': [
+          'assets/crypto/1000097419.jpg',
+          'assets/crypto/1000097420.jpg',
+          'assets/crypto/1000097421.jpg',
+          'assets/crypto/1000097422.jpg',
+          'assets/crypto/1000097418.jpg',
+        ],
+        'desc2':
+            'A robust, enterprise-grade crypto exchange solution designed to seamlessly operate across multiple blockchains and wallet. The platform enables users to manage and track their assets in real time with automatic balance synchronization, secure key handling, and NFC-based contactless wallet access. It supports fast and efficient crypto swaps, cross-chain transfers, and complete on-chain transaction history',
+      },
+      {
+        'title': 'AI Browser',
+        'github': 'https://github.com/neeraj150301/ai_browser',
+        'desc':
+            'A multi-platform AI-powered browser with multi-tab browsing, AI summaries, document file manager, multi-language translations, offline mode, and dark theme support.',
+        'images': [
+          'assets/ai_browser/1000097417.jpg',
+          'assets/ai_browser/1000097416.jpg',
+          'assets/ai_browser/1000097415.jpg',
+          'assets/ai_browser/1000097414.jpg',
+          'assets/ai_browser/1000097413.jpg',
+        ],
+        'desc2':
+            'A fully AI-integrated browser built in Flutter featuring smart tab management, webpage & document summarization, Hindi/Spanish/Italian translations, file downloads & uploads, offline caching, page/summary/history tracking, and a modern responsive UI with dark mode.',
+      },
+      {
         'title': 'Chatty\n(Realtime Chat App)',
         'github': 'https://github.com/neeraj150301/sampark',
         'desc':
@@ -285,7 +314,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
           ),
         ),
 
-        const SizedBox(width: 24),
+        const SizedBox(width: 14),
 
         // TEXT RIGHT
         Expanded(
@@ -307,26 +336,29 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                 style: const TextStyle(fontSize: 16, color: Colors.white70),
               ),
               const SizedBox(height: 32),
-
-              ElevatedButton.icon(
-                onPressed: () async {
-                  final url = Uri.parse(p['github']);
-                  if (await canLaunchUrl(url)) {
-                    await launchUrl(url, mode: LaunchMode.externalApplication);
-                  }
-                },
-                icon: const Icon(Icons.open_in_new, color: Colors.white),
-                label: const Text(
-                  "View GitHub",
-                  style: TextStyle(color: Colors.white),
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blueAccent,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(22),
+              if (p['github'] != null)
+                ElevatedButton.icon(
+                  onPressed: () async {
+                    final url = Uri.parse(p['github']);
+                    if (await canLaunchUrl(url)) {
+                      await launchUrl(
+                        url,
+                        mode: LaunchMode.externalApplication,
+                      );
+                    }
+                  },
+                  icon: const Icon(Icons.open_in_new, color: Colors.white),
+                  label: const Text(
+                    "View GitHub",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueAccent,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(22),
+                    ),
                   ),
                 ),
-              ),
             ],
           ),
         ),
